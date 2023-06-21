@@ -1,0 +1,2 @@
+1. Einfach per Button-Click die LLM Abfrage starten – ohne Gradio.
+2. Dazu gucken, warum diese View Function Error Meldung
