@@ -1,6 +1,5 @@
+from flask import Flask, render_template, request, jsonify
 import sqlite3
-from flask import Flask, render_template, request, url_for, flash, redirect
-from prompter import Prompter, new_emotions_prompt
 from llm import test
 
 app = Flask(__name__)
@@ -11,18 +10,13 @@ def get_db_connection():
     return conn
 
 @app.route('/')
-# def first(): 
-#     return render_template('index.tpl', gradioserver_url='http://127.0.0.1:7860')
-    
 def index():
     conn = get_db_connection()
-    emotions = conn.execute('SELECT * FROM emotions').fetchall()
+    emotions = conn.execute('SELECT * FROM emotions ORDER BY id DESC').fetchall()
     conn.close()
-    return render_template('index.tpl', gradioserver_url='http://127.0.0.1:7860', emotions = emotions)
+    return render_template('index.tpl', gradioserver_url='http://127.0.0.1:7860', emotions=emotions)
 
-@app.route('/emotions/')
-def emos():
-    conn = get_db_connection()
-    emotions = conn.execute('SELECT * FROM emotions').fetchall()
-    conn.close()
-    return render_template('emotions.tpl', emotions = emotions)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

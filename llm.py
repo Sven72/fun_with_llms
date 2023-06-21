@@ -4,6 +4,7 @@ import config
 import gradio as gr
 import json
 import sqlite3
+import requests
 
 # connection = sqlite3.connect('database.db')
 
@@ -55,6 +56,7 @@ def test(output):
 
     connection.commit()
     connection.close()
+    requests.get('http://localhost:5000/update')
     print(data)
 
  
